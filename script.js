@@ -3,37 +3,49 @@ const teamMembers = [
         name: "makid3r",
         leader: true,
         tags: ["web", "forensics", "pwn", "mobile"],
-        quote: "i like cyberpunk (and CS) (and also pizza, [and C.C])\n- Blog: https://makider.me\n- GitHub: makider",
+        bio: "i like cyberpunk (and CS) (and also pizza, [and C.C])",
+        socials: {
+            "Blog": "https://makider.me",
+            "GitHub": "https://github.com/N1kkogg",
+        }
     },
     {
         name: "0x42",
         tags: ["osint", "forensics", "hardware"],
-        quote: "The web whispers. I listen, uncovering patterns where others see noise.\n- GitHub: TimelessFez",
+        bio: "The web whispers. I listen, uncovering patterns where others see noise.",
+        socials: {
+            "GitHub": "https://github.com/TimelessFez",
+        }
     },
     {
         name: "Kibov",
         tags: ["web", "reverse engineering"],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "m3m0rydmp",
         tags: ["web", "osint"],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Madrat_0",
         tags: ["crypto", "web"],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "ol3livi0n",
         tags: ["web", "pwn", "reverse engineering", "crypto"],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "VulnX",
         tags: ["pwn", "reverse engineering", "mobile", "forensics"],
-        quote: "pwning stuff...\nPresident of Crypto club @ResetSec\n- Blog: https://vulnx.github.io/blog\n- GitHub: VulnX",
+        bio: "pwning stuff...\nPresident of Crypto club @ResetSec",
+        socials: {
+            "Blog": "https://vulnx.github.io/blog",
+            "GitHub": "https://github.com/VulnX",
+            "YouTube": "https://youtube.com/@thevulnx",
+        }
     }
 ];
 
@@ -42,67 +54,67 @@ const formerMembers = [
     {
         name: "AntennaeVY",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Brine",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "calx",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "daVinci",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "FIN",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "gexxr",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "greysneakthief",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Ivan Nikolskiy",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "lh0ax",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Kiarc",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Spaced out Rexy",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "Tr1dent",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     },
     {
         name: "xxaxaaa",
         tags: [],
-        quote: "TBD",
+        bio: "TBD",
     }
 ];
 
@@ -129,7 +141,7 @@ function addMembers(where, members) {
         const divMemberDescription = document.createElement("div");
         const divTags = document.createElement("div");
         const pName = document.createElement("p");
-        const divQuote = document.createElement("div");
+        const divBio = document.createElement("div");
 
         img.src = `/assets/profile/${member.name}.png`;
         img.alt = member.name;
@@ -148,15 +160,32 @@ function addMembers(where, members) {
         if (member.leader === true) {
             pName.setAttribute("data-leader", "true");
         }
-        divQuote.className = "quote";
-        member.quote.split("\n").forEach(line => {
+        divBio.className = "bio";
+        member.bio.split("\n").forEach(line => {
             const spanLine = document.createElement('span');
             spanLine.textContent = line;
-            divQuote.appendChild(spanLine);
+            divBio.appendChild(spanLine);
         });
+        if (member.socials !== undefined) {
+            const ul = document.createElement('ul');
+            for (const key in member.socials) {
+                if (member.socials.hasOwnProperty(key)) {
+                    const what = key;
+                    const link = member.socials[what];
+                    const li = document.createElement('li');
+                    const aLink = document.createElement('a');
+                    aLink.href = link;
+                    aLink.target = "_blank";
+                    aLink.textContent = what;
+                    li.appendChild(aLink);
+                    ul.appendChild(li);
+                }
+            }
+            divBio.appendChild(ul);
+        }
         divMemberDescription.appendChild(divTags);
         divMemberDescription.appendChild(pName);
-        divMemberDescription.appendChild(divQuote);
+        divMemberDescription.appendChild(divBio);
         tdMemberDescription.appendChild(divMemberDescription);
         tr.appendChild(tdImage);
         tr.appendChild(tdMemberDescription);

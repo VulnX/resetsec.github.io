@@ -200,9 +200,23 @@ table td {
     font-weight: normal;
 }
 
-.quote {
+.bio {
     display: flex;
     flex-direction: column;
+}
+
+.bio ul li {
+    list-style-position: inside;
+    list-style-type: disclosure-closed;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a:hover {
+    border-bottom: thin solid var(--white);
 }
 
 @media only screen and (max-width: 1024px) {
@@ -226,8 +240,14 @@ table td {
         padding: 0 30px 100px 30px;
     }
 
-    h1 {
+    .main-container h1 {
         font-size: 1rem !important;
+        margin-top: 50px;
+    }
+
+    .main-container h1::before {
+        font-size: .9rem;
+        margin-right: 5px;
     }
 
     .member-pfp {
@@ -236,5 +256,6 @@ table td {
 
     .tag::before {
         font-size: 0.7rem;
+        padding: 1px 5px;
     }
 }
