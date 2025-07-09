@@ -128,7 +128,19 @@ table td {
 .member-pfp {
     width: 128px;
     border-radius: 5px;
-    margin-right: 50px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag::before {
+    padding: 1px 10px;
+    border-radius: 100px;
+    font-size: 1rem;
+    margin: 0 3px;
+    white-space: nowrap;
 }
 
 .tag[data-tag="pwn"]::before {
@@ -176,13 +188,6 @@ table td {
     background-color: var(--dark-red);
 }
 
-.tag::before {
-    padding: 1px 10px;
-    border-radius: 100px;
-    font-size: 1rem;
-    margin: 0 3px;
-}
-
 .name {
     font-weight: bold;
 }
@@ -198,4 +203,38 @@ table td {
 .quote {
     display: flex;
     flex-direction: column;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    *,
+    *::before,
+    *::after {
+        font-size: 0.85rem;
+    }
+
+    .side-bar {
+        padding: 5px;
+    }
+
+    .side-bar button {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+
+    .main-container {
+        padding: 0 30px 100px 30px;
+    }
+
+    h1 {
+        font-size: 1rem !important;
+    }
+
+    .member-pfp {
+        width: 50px;
+    }
+
+    .tag::before {
+        font-size: 0.7rem;
+    }
 }

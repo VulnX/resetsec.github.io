@@ -116,8 +116,8 @@ function addMembers(where, members) {
     const colGroup = document.createElement('colgroup');
     const col_left = document.createElement('col');
     const col_right = document.createElement('col');
-    col_left.style.width = "20%";
-    col_right.style.width = "80%";
+    col_left.style.width = "25%";
+    col_right.style.width = "75%";
     colGroup.appendChild(col_left);
     colGroup.appendChild(col_right);
     table.appendChild(colGroup);
