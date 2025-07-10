@@ -256,6 +256,7 @@ a:hover {
 
     .tag::before {
         font-size: 0.7rem;
-        padding: 1px 5px;
+        padding: 0px 5px;
+        margin: 0 2px;
     }
 }
