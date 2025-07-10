@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
     --white: #ffffff;
@@ -28,10 +28,33 @@
     user-select: none;
 }
 
-body {
+main {
     display: flex;
     flex-direction: row;
 }
+
+.splash-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(var(--dark-grey), var(--black));
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.splash-img {
+    width: 20%;
+}
+
+.splash-title {
+    font-size: 7rem;
+    font-family: "Ubuntu Mono", monospace;
+}
+
 
 .side-bar {
     width: 25vw;
@@ -225,6 +248,10 @@ a:hover {
     *::before,
     *::after {
         font-size: 0.85rem;
+    }
+
+    .splash-title {
+        font-size: 3rem;
     }
 
     .side-bar {

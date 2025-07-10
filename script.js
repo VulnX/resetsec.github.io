@@ -125,9 +125,9 @@ function addMembers(where, members) {
         console.error("Failed to insert members table. Cannot find <tbody> tag");
         return;
     }
-    const colGroup = document.createElement('colgroup');
-    const col_left = document.createElement('col');
-    const col_right = document.createElement('col');
+    const colGroup = document.createElement("colgroup");
+    const col_left = document.createElement("col");
+    const col_right = document.createElement("col");
     col_left.style.width = "25%";
     col_right.style.width = "75%";
     colGroup.appendChild(col_left);
@@ -162,18 +162,18 @@ function addMembers(where, members) {
         }
         divBio.className = "bio";
         member.bio.split("\n").forEach(line => {
-            const spanLine = document.createElement('span');
+            const spanLine = document.createElement("span");
             spanLine.textContent = line;
             divBio.appendChild(spanLine);
         });
         if (member.socials !== undefined) {
-            const ul = document.createElement('ul');
+            const ul = document.createElement("ul");
             for (const key in member.socials) {
                 if (member.socials.hasOwnProperty(key)) {
                     const what = key;
                     const link = member.socials[what];
-                    const li = document.createElement('li');
-                    const aLink = document.createElement('a');
+                    const li = document.createElement("li");
+                    const aLink = document.createElement("a");
                     aLink.href = link;
                     aLink.target = "_blank";
                     aLink.textContent = what;
@@ -197,5 +197,47 @@ document.querySelector(".terminal-btn").addEventListener("click", () => {
     window.location.href += "reset-console/";
 });
 
+function showSplashAnimation() {
+    // config variables
+    const repeat = 3;
+    const animationSpeed = 30; // (in milliseconds)
+
+    const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const title = document.querySelector(".splash-title");
+    const titleString = title.textContent;
+    let iterations = 0;
+    const interval = setInterval(() => {
+        title.textContent = title.textContent.split("")
+            .map((letter, index) => {
+                if (index < iterations) {
+                    return titleString[index];
+                }
+                return letters[Math.floor(Math.random() * letters.length)];
+            })
+            .join("");
+        iterations += 1 / repeat;
+        if (titleString.length < iterations) {
+            clearInterval(interval);
+            hideSplashScreen();
+        }
+    }, animationSpeed);
+
+    function hideSplashScreen() {
+        // config variables (in milliseconds)
+        const delay = 500;
+        const transitionSpeed = 300;
+        
+        setTimeout(() => {
+            const splashScreen = document.querySelector(".splash-screen");
+            splashScreen.style.transition = `${transitionSpeed / 1000}s`;
+            splashScreen.style.opacity = 0;
+            setTimeout(() => {
+                splashScreen.style.display = "none";
+            }, transitionSpeed);
+        }, delay);
+    }
+}
+
+showSplashAnimation();
 addMembers(".active-members", teamMembers);
 addMembers(".former-members", formerMembers);
