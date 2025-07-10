@@ -22,11 +22,16 @@
     margin: 0;
     padding: 0;
     color: var(--white);
-    font-family: "Courier Prime", monospace;
     font-size: 1.2rem;
     line-height: 150%;
     user-select: none;
 }
+
+*:not(i.fab):not(i.fas):not(i.far):not(i.fa):not(i.fa-solid):not(i.fa-regular):not(i.fa-brands):not(svg) {
+    font-family: "Courier Prime", monospace;
+}
+
+
 
 main {
     display: flex;
