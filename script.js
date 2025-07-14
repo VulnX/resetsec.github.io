@@ -4,8 +4,8 @@ const CTFTimeURL = `https://ctftime.org/team/${CTFTimeTeamID}`;
 const teamMembers = [
     {
         name: "makid3r",
-        leader: true,
-        tags: ["web", "forensics", "pwn", "mobile"],
+        leader: true, // add misc category
+        tags: ["web", "forensics", "misc", "pwn", "mobile"],
         bio: "i like cyberpunk (and CS) (and also pizza, [and C.C])",
         socials: {
             "Blog": "https://makider.me",
@@ -19,6 +19,16 @@ const teamMembers = [
         socials: {
             "GitHub": "https://github.com/TimelessFez",
         }
+    },
+    {
+        name: "ap425q",
+        tags: ["pwn", "reverse engineering"],
+        bio: "TBD",
+    },
+    {
+        name: "calmred",
+        tags: ["forensics"],
+        bio: "TBD",
     },
     {
         name: "Kibov",
@@ -51,6 +61,7 @@ const teamMembers = [
         }
     }
 ];
+
 
 
 const formerMembers = [
