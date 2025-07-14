@@ -1,3 +1,6 @@
+const CTFTimeTeamID = 266022
+const CTFTimeURL = `https://ctftime.org/team/${CTFTimeTeamID}`;
+
 const teamMembers = [
     {
         name: "makid3r",
@@ -42,7 +45,7 @@ const teamMembers = [
         tags: ["pwn", "reverse engineering", "mobile", "forensics"],
         bio: "pwning stuff...\nPresident of Crypto club @ResetSec",
         socials: {
-            "Blog": "https://vulnx.github.io/blog",
+            "Website": "https://vulnx.github.io",
             "GitHub": "https://github.com/VulnX",
             "YouTube": "https://youtube.com/@thevulnx",
         }
@@ -121,17 +124,17 @@ const formerMembers = [
 
 function addMembers(where, members) {
     const table = document.querySelector(where);
-    if (table == null) {
-        console.error("Failed to insert members table. Cannot find <tbody> tag");
+    if (table === null) {
+        console.error("Failed to insert members table. Cannot find <table> tag");
         return;
     }
     const colGroup = document.createElement("colgroup");
-    const col_left = document.createElement("col");
-    const col_right = document.createElement("col");
-    col_left.style.width = "25%";
-    col_right.style.width = "75%";
-    colGroup.appendChild(col_left);
-    colGroup.appendChild(col_right);
+    const colLeft = document.createElement("col");
+    const colRight = document.createElement("col");
+    colLeft.style.width = "25%";
+    colRight.style.width = "75%";
+    colGroup.appendChild(colLeft);
+    colGroup.appendChild(colRight);
     table.appendChild(colGroup);
     members.forEach(member => {
         const tr = document.createElement("tr");
@@ -193,6 +196,95 @@ function addMembers(where, members) {
     });
 }
 
+async function getTeamStats() {
+    const res = await fetch(`https://api.cors.lol/?url=${CTFTimeURL}`);
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    const years = [
+        ...doc.querySelectorAll(".container .tab-content .tab-pane")
+    ].filter(div => div.id.startsWith("rating_"));
+
+    const stats = years
+        .map(year => {
+            const yearString = year.id.split("rating_")[1];
+            const table = year.querySelector("table tbody");
+            const rows = [...table.querySelectorAll("tr")];
+            const ctfs = rows
+                .filter(row => row.innerText !== "PlaceEventCTF pointsRating points")
+                .map(row => {
+                    const cols = row.querySelectorAll("td");
+                    return {
+                        "place": cols[1]?.innerText.trim(),
+                        "event": cols[2]?.innerText.trim(),
+                    };
+                });
+            return {
+                "year": yearString,
+                "ctfs": ctfs,
+            };
+        });
+
+    return stats;
+}
+
+function addTeamStats() {
+    // config variables
+    const max_ctfs = 5; // Maximum number of CTFs to display from each year
+
+    const statsPromise = getTeamStats();
+
+    const table = document.querySelector(".team-stats");
+    if (table === null) {
+        console.error("Failed to insert members table. Cannot find <table> tag");
+    }
+
+    const colGroup = document.createElement("colgroup");
+    const col1 = document.createElement("col");
+    const col2 = document.createElement("col");
+    const col3 = document.createElement("col");
+    col1.style.width = "20%";
+    col2.style.width = "20%";
+    col3.style.width = "60%";
+    colGroup.appendChild(col1);
+    colGroup.appendChild(col2);
+    colGroup.appendChild(col3);
+    table.appendChild(colGroup);
+
+    const trHeading = document.createElement('tr');
+    const tdHeadingYear = document.createElement('td');
+    const tdHeadingRank = document.createElement('td');
+    const tdHeadingCTF = document.createElement('td');
+    tdHeadingYear.innerText = 'Year';
+    tdHeadingRank.innerText = 'Rank';
+    tdHeadingCTF.innerText = 'CTF';
+    trHeading.appendChild(tdHeadingYear);
+    trHeading.appendChild(tdHeadingRank);
+    trHeading.appendChild(tdHeadingCTF);
+    table.appendChild(trHeading);
+
+    statsPromise.then(stats => stats.forEach(record => {
+        const ctfs = record.ctfs.sort((a, b) => Number(a.place) - Number(b.place)).slice(0, max_ctfs);
+        ctfs.forEach((ctf, i) => {
+            const tr = document.createElement('tr');
+            const tdRank = document.createElement('td');
+            const tdCTF = document.createElement('td');
+            if (i == 0) {
+                const tdYear = document.createElement('td');
+                tdYear.innerText = record.year;
+                tdYear.rowSpan = max_ctfs;
+                tr.appendChild(tdYear);
+            }
+            tdRank.innerText = ctf.place;
+            tdCTF.innerText = ctf.event;
+            tr.appendChild(tdRank);
+            tr.appendChild(tdCTF);
+            table.appendChild(tr);
+        });
+    }));
+}
+
 document.querySelector(".terminal-btn").addEventListener("click", () => {
     window.location.href += "reset-console/";
 });
@@ -224,9 +316,9 @@ function showSplashAnimation() {
 
     function hideSplashScreen() {
         // config variables (in milliseconds)
-        const delay = 500;
+        const delay = 750;
         const transitionSpeed = 300;
-        
+
         setTimeout(() => {
             const splashScreen = document.querySelector(".splash-screen");
             splashScreen.style.transition = `${transitionSpeed / 1000}s`;
@@ -241,3 +333,4 @@ function showSplashAnimation() {
 showSplashAnimation();
 addMembers(".active-members", teamMembers);
 addMembers(".former-members", formerMembers);
+addTeamStats();
