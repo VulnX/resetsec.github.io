@@ -23,7 +23,11 @@ const teamMembers = [
     {
         name: "ap425q",
         tags: ["pwn", "reverse engineering"],
-        bio: "TBD",
+        bio: "Security Researcher",
+        socials: {
+            "Blog": "https://ap425q.github.io/",
+            "GitHub": "https://github.com/ap425q",
+        }
     },
     {
         name: "calmred",
