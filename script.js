@@ -47,7 +47,11 @@ const teamMembers = [
     {
         name: "Madrat_0",
         tags: ["crypto", "web"],
-        bio: "TBD",
+        bio: "Crypto. Chaos. No sleep.",
+        socials: {
+            "GitHub": "https://github.com/Adrito-M",
+            "CodeForces": "https://codeforces.com/profile/MadRat_0",
+        }
     },
     {
         name: "ol3livi0n",
@@ -72,67 +76,67 @@ const formerMembers = [
     {
         name: "AntennaeVY",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "Brine",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "calx",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "daVinci",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "FIN",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "gexxr",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "greysneakthief",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "Ivan Nikolskiy",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "lh0ax",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "Kiarc",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "Spaced out Rexy",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "Tr1dent",
         tags: [],
-        bio: "TBD",
+        bio: "",
     },
     {
         name: "xxaxaaa",
         tags: [],
-        bio: "TBD",
+        bio: "",
     }
 ];
 
