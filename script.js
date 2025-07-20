@@ -37,7 +37,7 @@ const teamMembers = [
     {
         name: "Kibov",
         tags: ["web", "reverse engineering"],
-        bio: "TBD",
+        bio: "Sometimes I know what I'm doing",
     },
     {
         name: "m3m0rydmp",
@@ -55,8 +55,12 @@ const teamMembers = [
     },
     {
         name: "ol3livi0n",
-        tags: ["web", "pwn", "reverse engineering", "crypto"],
-        bio: "TBD",
+        tags: ["web", "blockchain"],
+        bio: "Spidering the web...",
+        socials: {
+            "GitHub": "https://github.com/OI3livion",
+            "X": "https://x.com/ol3livi0n",
+        }
     },
     {
         name: "VulnX",
