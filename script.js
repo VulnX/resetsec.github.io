@@ -38,6 +38,9 @@ const teamMembers = [
         name: "Kibov",
         tags: ["web", "reverse engineering"],
         bio: "Sometimes I know what I'm doing",
+        socials: {
+            "Blog":"https://kibov.pl/posts/"
+        }
     },
     {
         name: "m3m0rydmp",
