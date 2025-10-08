@@ -57,15 +57,6 @@ const teamMembers = [
         }
     },
     {
-        name: "ol3livi0n",
-        tags: ["web", "blockchain"],
-        bio: "Spidering the web...",
-        socials: {
-            "GitHub": "https://github.com/OI3livion",
-            "X": "https://x.com/ol3livi0n",
-        }
-    },
-    {
         name: "VulnX",
         tags: ["pwn", "reverse engineering", "mobile", "forensics"],
         bio: "pwning stuff...\nPresident of Crypto club @ResetSec",
@@ -124,6 +115,15 @@ const formerMembers = [
         name: "lh0ax",
         tags: [],
         bio: "",
+    },
+    {
+        name: "ol3livi0n",
+        tags: ["web", "blockchain"],
+        bio: "Spidering the web...",
+        socials: {
+            "GitHub": "https://github.com/OI3livion",
+            "X": "https://x.com/ol3livi0n",
+        }
     },
     {
         name: "Kiarc",
