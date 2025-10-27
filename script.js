@@ -169,7 +169,7 @@ function addMembers(where, members) {
     const pName = document.createElement("p");
     const divBio = document.createElement("div");
 
-    img.src = `/assets/profile/${member.name}.webp`;
+    img.src = window.location.href + `/assets/profile/${member.name}.webp`;
     img.alt = member.name;
     img.className = "member-pfp";
     tdImage.appendChild(img);
@@ -220,7 +220,7 @@ function addMembers(where, members) {
 }
 
 async function getTeamStats() {
-  const res = await fetch("/stats.json");
+  const res = await fetch(window.location.href + "/stats.json");
   const text = await res.text();
   const stats = JSON.parse(text);
   return stats;
