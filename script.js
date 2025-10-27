@@ -220,35 +220,25 @@ function addMembers(where, members) {
 }
 
 async function getTeamStats() {
-  const res = await fetch(`https://api.cors.lol/?url=${CTFTimeURL}`);
-  const html = await res.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, "text/html");
-
-  const years = [
-    ...doc.querySelectorAll(".container .tab-content .tab-pane"),
-  ].filter((div) => div.id.startsWith("rating_"));
-
-  const stats = years.map((year) => {
-    const yearString = year.id.split("rating_")[1];
-    const table = year.querySelector("table tbody");
-    const rows = [...table.querySelectorAll("tr")];
-    const ctfs = rows
-      .filter((row) => row.innerText !== "PlaceEventCTF pointsRating points")
-      .map((row) => {
-        const cols = row.querySelectorAll("td");
-        return {
-          place: cols[1]?.innerText.trim(),
-          event: cols[2]?.innerText.trim(),
-        };
-      });
-    return {
-      year: yearString,
-      ctfs: ctfs,
-    };
-  });
-
+  const res = await fetch("/stats.json");
+  const text = await res.text();
+  const stats = JSON.parse(text);
   return stats;
+}
+
+/**
+ * Calculates the CTF score based on the points and the rank of the team.
+ *
+ * The score is computed as the ratio of points to place. This ensures that the
+ * CTF rank is not determined solely by the team's place (which could be
+ * influenced by the number of teams participating) or the points (which could
+ * depend on how highly rated the CTF event is). Instead, both factors are
+ * considered simultaneously to give a more balanced score.
+ */
+function getCTFScore(ctf) {
+  const score = Number(ctf.points) / Number(ctf.place);
+  console.log(ctf, "score:", score);
+  return score;
 }
 
 function addTeamStats() {
@@ -289,8 +279,9 @@ function addTeamStats() {
   statsPromise.then((stats) =>
     stats.forEach((record) => {
       const ctfs = record.ctfs
-        .sort((a, b) => Number(a.place) - Number(b.place))
+        .sort((a, b) => getCTFScore(b) - getCTFScore(a))
         .slice(0, max_ctfs);
+
       ctfs.forEach((ctf, i) => {
         const tr = document.createElement("tr");
         const tdRank = document.createElement("td");
@@ -307,7 +298,7 @@ function addTeamStats() {
         tr.appendChild(tdCTF);
         table.appendChild(tr);
       });
-    }),
+    })
   );
 }
 
@@ -327,7 +318,7 @@ function showSplashAnimation() {
   const interval = setInterval(() => {
     title.textContent = title.textContent
       .split("")
-      .map((letter, index) => {
+      .map((_letter, index) => {
         if (index < iterations) {
           return titleString[index];
         }
